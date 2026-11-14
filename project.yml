@@ -1,0 +1,29 @@
+name: YTLyrics
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "15.0"
+targets:
+  YTLyrics:
+    type: application
+    platform: iOS
+    sources:
+      - path: YTLyrics
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.ytlyrics
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+    info:
+      path: YTLyrics/Info.plist
+      properties:
+        CFBundleDisplayName: YT Lyrics
+        UILaunchScreen: {}
+        UIBackgroundModes:
+          - audio
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
