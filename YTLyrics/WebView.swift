@@ -28,13 +28,8 @@ struct WebView: UIViewRepresentable {
 
     /// Gabungan: CSS + shim pengganti chrome.runtime + script lirik (yal.js)
     static func injectedSource() -> String {
-        func load(_ name: String, _ ext: String) -> String {
-            guard let url = Bundle.main.url(forResource: name, withExtension: ext),
-                  let s = try? String(contentsOf: url, encoding: .utf8) else { return "" }
-            return s
-        }
-        let css = load("yal", "css")
-        let js = load("yal", "js")
+        let css = Injected.css
+        let js = Injected.js
         let arr = (try? JSONSerialization.data(withJSONObject: [css], options: []))
             .flatMap { String(data: $0, encoding: .utf8) } ?? "[\"\"]"
 
