@@ -54,7 +54,7 @@ enum Injected {
   function clean(s) {
     return (s || "")
       .replace(/\([^)]*\)|\[[^\]]*\]|【[^】]*】/g, " ")
-      .replace(/\b(official|lyrics?|lirik|video|audio|music video|mv|hd|4k|visualizer)\b/gi, " ")
+      .replace(/\b(official|lyrics?|lirik|video|audio|music video|mv|hd|4k|visualizer|remaster(?:ed)?)\b/gi, " ")
       .replace(/\s+(feat\.?|ft\.?)\s.*$/i, "")
       .replace(/\s{2,}/g, " ")
       .trim();
@@ -270,10 +270,16 @@ enum Injected {
       lines = null;
       hidePanel();
       say("Mencari lirik…", true);
+      dbg("mencari: " + title);
+      let got = false;
+      setTimeout(() => {
+        if (!got && key === currentKey) { dbg("timeout: tidak ada balasan"); say("Lirik timeout"); }
+      }, 15000);
 
       chrome.runtime.sendMessage(
         { type: "findLyrics", title, artist, duration: v.duration },
         resp => {
+          got = true;
           if (key !== currentKey) return;
           if (!resp || !resp.ok) { dbg("gagal ambil: " + (resp && resp.error)); return say("Gagal mengambil lirik"); }
           const r = resp.result || {};
