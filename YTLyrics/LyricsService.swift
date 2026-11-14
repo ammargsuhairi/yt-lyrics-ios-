@@ -2,7 +2,7 @@ import Foundation
 
 enum LyricsService {
     private static func fetch(_ url: URL) async -> Data? {
-        guard let (data, resp) = try? await URLSession.shared.data(from: url),
+        guard let (data, resp) = try? await URLSession.shared.data(for: URLRequest(url: url, timeoutInterval: 8)),
               (resp as? HTTPURLResponse)?.statusCode == 200 else { return nil }
         return data
     }
